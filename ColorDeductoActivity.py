@@ -24,7 +24,7 @@ from sugar3.graphics.objectchooser import ObjectChooser
 from toolbar_utils import button_factory, label_factory, separator_factory
 from utils import json_load, json_dump
 
-import telepathy
+from gi.repository import TelepathyGLib as telepathy
 import dbus
 from dbus.service import signal
 from dbus.gobject_service import ExportedGObject
