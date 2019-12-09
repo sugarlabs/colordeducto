@@ -78,6 +78,7 @@ def svg_str_to_pixbuf(svg_string):
 
 import gi
 from gi.repository import Gtk, GdkPixbuf, Gdk
+gi.require_version('PangoCairo', '1.0')
 from gi.repository import Pango, PangoCairo
 import cairo
 
@@ -141,7 +142,7 @@ class Sprites:
         else:
             self.cr = cr
         if cr is None:
-            print 'sprites.redraw_sprites: no Cairo context'
+            print('sprites.redraw_sprites: no Cairo context')
             return
         for spr in self.list:
             if area == None:
@@ -250,7 +251,7 @@ class Sprite:
     def set_label(self, new_label, i=0):
         ''' Set the label drawn on the sprite '''
         self._extend_labels_array(i)
-        if type(new_label) is str or type(new_label) is unicode:
+        if type(new_label) is str or type(new_label) is str:
             # pango doesn't like nulls
             self.labels[i] = new_label.replace("\0", " ")
         else:
@@ -328,7 +329,7 @@ class Sprite:
         if cr is None:
             cr = self._sprites.cr
         if cr is None:
-            print 'sprite.draw: no Cairo context.'
+            print('sprite.draw: no Cairo context.')
             return
         for i, img in enumerate(self.images):
             if isinstance(img, GdkPixbuf.Pixbuf):
@@ -349,7 +350,7 @@ class Sprite:
                              self.rect[3])
                 cr.fill()
             else:
-                print 'sprite.draw: source not a pixbuf (%s)' % (type(img))
+                print(('sprite.draw: source not a pixbuf (%s)' % (type(img))))
         if len(self.labels) > 0:
             self.draw_label(cr)
 
@@ -461,5 +462,5 @@ class Sprite:
             else:
                 return(-1, -1, -1, -1)
         except IndexError:
-            print "Index Error: %d %d" % (len(array), offset)
+            print(("Index Error: %d %d" % (len(array), offset)))
             return(-1, -1, -1, -1)

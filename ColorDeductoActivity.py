@@ -11,7 +11,8 @@
 # along with this library; if not, write to the Free Software
 # Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
 
-
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk,Gdk
 
 from sugar3.activity import activity
@@ -27,7 +28,7 @@ from utils import json_load, json_dump
 import telepathy
 import dbus
 from dbus.service import signal
-from dbus.gobject_service import ExportedGObject
+from dbus.gi_service import ExportedGObject
 from sugar3.presence import presenceservice
 from sugar3.presence.tubeconn import TubeConnection
 
@@ -52,7 +53,7 @@ class ColorDeductoActivity(activity.Activity):
         """ Initialize the toolbars and the game board """
         try:
             super(ColorDeductoActivity, self).__init__(handle)
-        except dbus.exceptions.DBusException, e:
+        except dbus.exceptions.DBusException as e:
             _logger.error(str(e))
 
         self.nick = profile.get_nick_name()

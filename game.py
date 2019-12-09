@@ -333,19 +333,19 @@ class Game():
         ''' Run Python code passed as argument '''
         userdefined = {}
         try:
-            exec f in globals(), userdefined
+            exec(f, globals(), userdefined)
             return userdefined['generate_pattern'](self)
-        except ZeroDivisionError, e:
+        except ZeroDivisionError as e:
             self._set_label('Python zero-divide error: %s' % (str(e)))
-        except ValueError, e:
+        except ValueError as e:
             self._set_label('Python value error: %s' % (str(e)))
-        except SyntaxError, e:
+        except SyntaxError as e:
             self._set_label('Python syntax error: %s' % (str(e)))
-        except NameError, e:
+        except NameError as e:
             self._set_label('Python name error: %s' % (str(e)))
-        except OverflowError, e:
+        except OverflowError as e:
             self._set_label('Python overflow error: %s' % (str(e)))
-        except TypeError, e:
+        except TypeError as e:
             self._set_label('Python type error: %s' % (str(e)))
         except:
             self._set_label('Python error')
@@ -364,7 +364,7 @@ class Game():
         cr.clip()
         # Refresh sprite list
         if cr is not None:
-			self._sprites.redraw_sprites(cr=cr)
+            self._sprites.redraw_sprites(cr=cr)
 
     def _destroy_cb(self, win, event):
         Gtk.main_quit()
@@ -416,8 +416,9 @@ class Game():
 
 def svg_str_to_pixbuf(svg_string):
     """ Load pixbuf from SVG string """
+    
     pl = GdkPixbuf.PixbufLoader.new_with_type('svg')
-    pl.write(svg_string)
+    pl.write(bytes(svg_string, 'utf-8'))
     pl.close()
     pixbuf = pl.get_pixbuf()
     return pixbuf
