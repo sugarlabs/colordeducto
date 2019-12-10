@@ -389,8 +389,8 @@ class ColorDeductoActivity(activity.Activity):
 params={} state={}'.format(id, initiator, type, service, params, state))
 
         if (type == telepathy.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
-            # FIXME if state == telepathy.TUBE_STATE_LOCAL_PENDING: was changed as follows
-            if state == telepathy.PROP_CHANNEL_INTERFACE_GROUP_LOCAL_PENDING_MEMBERS:
+            
+            if state == TelepathyGLib.TubeState(0):
                 self.tubes_chan[ \
                               telepathy.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
 
