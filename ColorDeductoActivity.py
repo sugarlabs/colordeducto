@@ -390,7 +390,7 @@ params={} state={}'.format(id, initiator, type, service, params, state))
 
         if (type == telepathy.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
             
-            if state == TelepathyGLib.TubeState(0):
+            if state == telepathy.TubeState.LOCAL_PENDING:
                 self.tubes_chan[ \
                               telepathy.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
 
