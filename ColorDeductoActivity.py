@@ -25,7 +25,8 @@ from sugar3.graphics.objectchooser import ObjectChooser
 from toolbar_utils import button_factory, label_factory, separator_factory
 from utils import json_load, json_dump
 
-import telepathy
+# import telepathy
+from gi.repository import TelepathyGLib as telepathy
 import dbus
 from dbus.service import signal
 from dbus.gi_service import ExportedGObject
@@ -345,16 +346,16 @@ class ColorDeductoActivity(activity.Activity):
         self.tubes_chan = self._shared_activity.telepathy_tubes_chan
         self.text_chan = self._shared_activity.telepathy_text_chan
 
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(
+        self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES].connect_to_signal(
             'NewTube', self._new_tube_cb)
 
         if sharer:
             _logger.debug('This is my activity: making a tube...')
-            id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
+            id = self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES].OfferDBusTube(
                 SERVICE, {})
         else:
             _logger.debug('I am joining an activity: waiting for a tube...')
-            self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
+            self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES].ListTubes(
                 reply_handler=self._list_tubes_reply_cb,
                 error_handler=self._list_tubes_error_cb)
 
@@ -369,17 +370,18 @@ class ColorDeductoActivity(activity.Activity):
 
     def _new_tube_cb(self, id, initiator, type, service, params, state):
         ''' Create a new tube. '''
-        _logger.debug('New tube: ID=%d initator=%d type=%d service=%s \
-params=%r state=%d' % (id, initiator, type, service, params, state))
+        _logger.debug('New tube: ID={} initator={} type={} service={} \
+params={} state={}'.format(id, initiator, type, service, params, state))
 
-        if (type == telepathy.TUBE_TYPE_DBUS and service == SERVICE):
-            if state == telepathy.TUBE_STATE_LOCAL_PENDING:
+        if (type == telepathy.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
+            # FIXME if state == telepathy.TUBE_STATE_LOCAL_PENDING: was changed as follows
+            if state == telepathy.PROP_CHANNEL_INTERFACE_GROUP_LOCAL_PENDING_MEMBERS:
                 self.tubes_chan[ \
-                              telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
+                              telepathy.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
 
             tube_conn = TubeConnection(self.conn,
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], id, \
-                group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
+                self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES], id, \
+                group_iface=self.text_chan[telepathy.IFACE_CHANNEL_INTERFACE_GROUP])
 
             self.chattube = ChatTube(tube_conn, self._initiating, \
                 self._event_received_cb)
