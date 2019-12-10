@@ -25,8 +25,7 @@ from sugar3.graphics.objectchooser import ObjectChooser
 from toolbar_utils import button_factory, label_factory, separator_factory
 from utils import json_load, json_dump
 
-# import telepathy
-from gi.repository import TelepathyGLib as telepathy
+from gi.repository import TelepathyGLib
 import dbus
 from dbus.service import signal
 from dbus.gi_service import ExportedGObject
@@ -46,19 +45,19 @@ IFACE = SERVICE
 PATH = '/in/seeta/ColorDeductoActivity'
 
 
-CHANNEL_INTERFACE = telepathy.IFACE_CHANNEL
-CHANNEL_INTERFACE_GROUP = telepathy.IFACE_CHANNEL_INTERFACE_GROUP
-CHANNEL_TYPE_TEXT = telepathy.IFACE_CHANNEL_TYPE_TEXT
-CHANNEL_TYPE_FILE_TRANSFER = telepathy.IFACE_CHANNEL_TYPE_FILE_TRANSFER
-CONN_INTERFACE_ALIASING = telepathy.IFACE_CONNECTION_INTERFACE_ALIASING
-CONN_INTERFACE = telepathy.IFACE_CONNECTION
-CHANNEL = telepathy.IFACE_CHANNEL
-CLIENT = telepathy.IFACE_CLIENT
-CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES = telepathy.ChannelGroupFlags.CHANNEL_SPECIFIC_HANDLES
-CONNECTION_HANDLE_TYPE_CONTACT = telepathy.HandleType.CONTACT
-CHANNEL_TEXT_MESSAGE_TYPE_NORMAL = telepathy.ChannelTextMessageType.NORMAL
-SOCKET_ADDRESS_TYPE_UNIX = telepathy.SocketAddressType.UNIX
-SOCKET_ACCESS_CONTROL_LOCALHOST = telepathy.SocketAccessControl.LOCALHOST
+CHANNEL_INTERFACE = TelepathyGLib.IFACE_CHANNEL
+CHANNEL_INTERFACE_GROUP = TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP
+CHANNEL_TYPE_TEXT = TelepathyGLib.IFACE_CHANNEL_TYPE_TEXT
+CHANNEL_TYPE_FILE_TRANSFER = TelepathyGLib.IFACE_CHANNEL_TYPE_FILE_TRANSFER
+CONN_INTERFACE_ALIASING = TelepathyGLib.IFACE_CONNECTION_INTERFACE_ALIASING
+CONN_INTERFACE = TelepathyGLib.IFACE_CONNECTION
+CHANNEL = TelepathyGLib.IFACE_CHANNEL
+CLIENT = TelepathyGLib.IFACE_CLIENT
+CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES = TelepathyGLib.ChannelGroupFlags.CHANNEL_SPECIFIC_HANDLES
+CONNECTION_HANDLE_TYPE_CONTACT = TelepathyGLib.HandleType.CONTACT
+CHANNEL_TEXT_MESSAGE_TYPE_NORMAL = TelepathyGLib.ChannelTextMessageType.NORMAL
+SOCKET_ADDRESS_TYPE_UNIX = TelepathyGLib.SocketAddressType.UNIX
+SOCKET_ACCESS_CONTROL_LOCALHOST = TelepathyGLib.SocketAccessControl.LOCALHOST
 
 
 class ColorDeductoActivity(activity.Activity):
@@ -361,16 +360,16 @@ class ColorDeductoActivity(activity.Activity):
         self.tubes_chan = self._shared_activity.telepathy_tubes_chan
         self.text_chan = self._shared_activity.telepathy_text_chan
 
-        self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES].connect_to_signal(
+        self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].connect_to_signal(
             'NewTube', self._new_tube_cb)
 
         if sharer:
             _logger.debug('This is my activity: making a tube...')
-            id = self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES].OfferDBusTube(
+            id = self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].OfferDBusTube(
                 SERVICE, {})
         else:
             _logger.debug('I am joining an activity: waiting for a tube...')
-            self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES].ListTubes(
+            self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].ListTubes(
                 reply_handler=self._list_tubes_reply_cb,
                 error_handler=self._list_tubes_error_cb)
 
@@ -388,15 +387,15 @@ class ColorDeductoActivity(activity.Activity):
         _logger.debug('New tube: ID={} initator={} type={} service={} \
 params={} state={}'.format(id, initiator, type, service, params, state))
 
-        if (type == telepathy.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
+        if (type == TelepathyGLib.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
             
-            if state == telepathy.TubeState.LOCAL_PENDING:
+            if state == TelepathyGLib.TubeState.LOCAL_PENDING:
                 self.tubes_chan[ \
-                              telepathy.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
+                              TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
 
             tube_conn = TubeConnection(self.conn,
-                self.tubes_chan[telepathy.IFACE_CHANNEL_TYPE_TUBES], id, \
-                group_iface=self.text_chan[telepathy.IFACE_CHANNEL_INTERFACE_GROUP])
+                self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES], id, \
+                group_iface=self.text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP])
 
             self.chattube = ChatTube(tube_conn, self._initiating, \
                 self._event_received_cb)
