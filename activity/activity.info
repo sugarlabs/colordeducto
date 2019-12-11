@@ -1,6 +1,6 @@
 [Activity]
 name = ColorDeducto
-exec = sugar-activity ColorDeductoActivity.ColorDeductoActivity
+exec = sugar-activity3 ColorDeductoActivity.ColorDeductoActivity
 bundle_id = in.seeta.ColorDeducto
 icon = activity-color-deducto
 activity_version = 7

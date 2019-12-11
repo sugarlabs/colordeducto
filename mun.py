@@ -117,7 +117,7 @@ class MunColor():
 
     def __init__(self):
         self.hue = 0
-	self.value = 5
+        self.value = 5
         self.chroma = 1
 
     def set_hue(self, hue):
@@ -167,12 +167,12 @@ class MunColor():
 
     def get_color(self):
         c = self.chroma
-	rgb = [-1, -1, -1]
-	while -1 in rgb:
-           if c == 0:
-               rgb = MUN[0][self.value - 2]
-           else:
-               rgb = MUN[c][self.hue][self.value - 2]
-           if -1 in rgb:
-               c -= 1
+        rgb = [-1, -1, -1]
+        while -1 in rgb:
+            if c == 0:
+                rgb = MUN[0][self.value - 2]
+            else:
+                rgb = MUN[c][self.hue][self.value - 2]
+            if -1 in rgb:
+                c -= 1
         return '#%02x%02x%02x' % (rgb[0], rgb[1], rgb[2])
