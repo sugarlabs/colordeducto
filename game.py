@@ -224,7 +224,7 @@ from sprites import Sprites, Sprite
 # Grid dimensions
 GRID = 5
 WHITE = 2
-DOT_SIZE = int(10*Gdk.Screen.height())
+DOT_SIZE = int(0.1*Gdk.Screen.height())
 
 
 class Game():
@@ -245,7 +245,7 @@ class Game():
 
         self._width = Gdk.Screen.width()
         self._height = Gdk.Screen.height() - (GRID_CELL_SIZE * 1.5)
-        self._scale = self._width / (10 * DOT_SIZE * 1.2)
+        self._scale = self._height / (DOT_SIZE*7)
         self._dot_size = int(DOT_SIZE * self._scale)
         self._space = int(self._dot_size / 5.)
         self.max_levels = len(LEVELS_TRUE)
