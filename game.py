@@ -224,7 +224,7 @@ from sprites import Sprites, Sprite
 # Grid dimensions
 GRID = 5
 WHITE = 2
-DOT_SIZE = 80
+DOT_SIZE = int(10*Gdk.Screen.height())
 
 
 class Game():
