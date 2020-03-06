@@ -24,7 +24,7 @@ A Non-sugarized pygtk version of Deducto was developed by Naveen
 Aggarwal and Pankhuri Gupta under the guidance of Manusheel Gupta and
 Vijay Majumadar.
 
-This version of Color Deducto was written by scratch by Walter in
+This version of Color Deducto was written from scratch by Walter in
 order to better match the standard Sugar look and feel.
 
 
