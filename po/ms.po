@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-15 22:31-0400\n"
-"PO-Revision-Date: 2017-10-15 10:43+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2019-03-07 16:58+0000\n"
+"Last-Translator: Ariessa  <ariessa.norramli@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1508064222.000000\n"
+"X-POOTLE-MTIME: 1551977933.000000\n"
 
 #: activity/activity.info:2
 msgid "ColorDeducto"
-msgstr ""
+msgstr "KenaliWarna"
 
 #: ColorDeductoActivity.py:94
 #, python-format
@@ -101,7 +101,7 @@ msgstr "Tunjukkan pola yang tidak padan dengan peraturan."
 #: ColorDeductoActivity.py:265
 #, python-format
 msgid "Explore patterns with the %s and %s buttons."
-msgstr ""
+msgstr "Jelajah corak dengan butang %s dan %s."
 
 #: ColorDeductoActivity.py:281
 msgid "Load a \"True\" pattern generator from the journal"

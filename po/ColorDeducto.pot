@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 13:42+1100\n"
+"POT-Creation-Date: 2020-03-07 00:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,88 +25,88 @@ msgstr ""
 msgid "a game based on logical induction"
 msgstr ""
 
-#: ColorDeductoActivity.py:90
+#: ColorDeductoActivity.py:91
 #, python-format
 msgid "Resuming level %d"
 msgstr ""
 
-#: ColorDeductoActivity.py:114 ColorDeductoActivity.py:181
-#: ColorDeductoActivity.py:211
+#: ColorDeductoActivity.py:115 ColorDeductoActivity.py:182
+#: ColorDeductoActivity.py:212
 msgid "Start a new game."
 msgstr ""
 
-#: ColorDeductoActivity.py:120 ColorDeductoActivity.py:252
+#: ColorDeductoActivity.py:121 ColorDeductoActivity.py:253
 msgid "The pattern matches the rule."
 msgstr ""
 
-#: ColorDeductoActivity.py:124 ColorDeductoActivity.py:254
+#: ColorDeductoActivity.py:125 ColorDeductoActivity.py:255
 msgid "The pattern does not match the rule."
 msgstr ""
 
-#: ColorDeductoActivity.py:130 ColorDeductoActivity.py:250
+#: ColorDeductoActivity.py:131 ColorDeductoActivity.py:251
 msgid "Explore some examples."
 msgstr ""
 
-#: ColorDeductoActivity.py:139
+#: ColorDeductoActivity.py:140
 msgid "Load a custom level."
 msgstr ""
 
-#: ColorDeductoActivity.py:159 ColorDeductoActivity.py:170
-#: ColorDeductoActivity.py:255 ColorDeductoActivity.py:417
+#: ColorDeductoActivity.py:160 ColorDeductoActivity.py:171
+#: ColorDeductoActivity.py:256 ColorDeductoActivity.py:419
 #, python-format
 msgid "Playing level %d"
 msgstr ""
 
-#: ColorDeductoActivity.py:161
+#: ColorDeductoActivity.py:162
 msgid "Only sharer can start a new game."
 msgstr ""
 
-#: ColorDeductoActivity.py:168
+#: ColorDeductoActivity.py:169
 msgid "Game over."
 msgstr ""
 
-#: ColorDeductoActivity.py:183 ColorDeductoActivity.py:213
+#: ColorDeductoActivity.py:184 ColorDeductoActivity.py:214
 msgid "Wait for sharer to start a new game."
 msgstr ""
 
-#: ColorDeductoActivity.py:194 ColorDeductoActivity.py:223
+#: ColorDeductoActivity.py:195 ColorDeductoActivity.py:224
 #, python-format
 msgid "%d correct answers."
 msgstr ""
 
-#: ColorDeductoActivity.py:200
+#: ColorDeductoActivity.py:201
 msgid "Pattern was false."
 msgstr ""
 
-#: ColorDeductoActivity.py:229
+#: ColorDeductoActivity.py:230
 msgid "Pattern was true."
 msgstr ""
 
-#: ColorDeductoActivity.py:240
+#: ColorDeductoActivity.py:241
 msgid "Resume play"
 msgstr ""
 
-#: ColorDeductoActivity.py:242
+#: ColorDeductoActivity.py:243
 msgid "Show a pattern that matches the rule."
 msgstr ""
 
-#: ColorDeductoActivity.py:244
+#: ColorDeductoActivity.py:245
 msgid "Show a pattern that does not match the rule."
 msgstr ""
 
-#: ColorDeductoActivity.py:246
+#: ColorDeductoActivity.py:247
 #, python-format
 msgid "Explore patterns with the %s and %s buttons."
 msgstr ""
 
-#: ColorDeductoActivity.py:262
+#: ColorDeductoActivity.py:263
 msgid "Load a \"True\" pattern generator from the journal"
 msgstr ""
 
-#: ColorDeductoActivity.py:269
+#: ColorDeductoActivity.py:270
 msgid "Load a \"False\" pattern generator from the journal"
 msgstr ""
 
-#: ColorDeductoActivity.py:275
+#: ColorDeductoActivity.py:276
 msgid "New level added"
 msgstr ""

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-15 22:31-0400\n"
-"PO-Revision-Date: 2016-05-13 00:32+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2017-11-29 11:31+0000\n"
+"Last-Translator: valente <valente.luis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1463099524.000000\n"
+"X-POOTLE-MTIME: 1511955078.000000\n"
 
 #: activity/activity.info:2
 msgid "ColorDeducto"
-msgstr ""
+msgstr "ColorDeducto"
 
 #: ColorDeductoActivity.py:94
 #, python-format
@@ -102,7 +102,7 @@ msgstr "Mostra um padrão que não corresponda à regra."
 #: ColorDeductoActivity.py:265
 #, python-format
 msgid "Explore patterns with the %s and %s buttons."
-msgstr ""
+msgstr "Explorar padrões com os botões %s e %s."
 
 #: ColorDeductoActivity.py:281
 msgid "Load a \"True\" pattern generator from the journal"
