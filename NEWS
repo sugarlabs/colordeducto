@@ -1,4 +1,15 @@
 NEWS
+
+8
+* Remove pre0.86 toolbars (Walter Bender)
+* Overwrite default label width (Walter Bender)
+* Added categories (Walter Bender)
+* Push from pootle (Chris Leonard)
+* L10n refresh (Chris Leonard)
+* Update POT file and merge translations (James Cameron, Ibiam Chihurumnaya)
+* Port to Python 3 (Srevin Saju)
+* Fix for 16:9 Display Monitor (Srevin Saju)
+
 7
 
 ENHANCEMENT:
