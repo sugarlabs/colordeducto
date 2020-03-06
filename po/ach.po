@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-03-15 22:31-0400\n"
-"PO-Revision-Date: 2017-10-15 10:48+0000\n"
-"Last-Translator: Chris <cjl@sugarlabs.org>\n"
+"PO-Revision-Date: 2018-04-03 06:24+0000\n"
+"Last-Translator: Olot <agwanta2004@yahoo.co.uk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ach\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1508064527.000000\n"
+"X-POOTLE-MTIME: 1522736666.000000\n"
 
 #: activity/activity.info:2
 msgid "ColorDeducto"
@@ -59,19 +59,19 @@ msgstr "Tye katuku ilebol %d"
 
 #: ColorDeductoActivity.py:180
 msgid "Only sharer can start a new game."
-msgstr "Ngat anywako kedi keken en twero cako tuku anyen."
+msgstr "Ngat aleo kedi keken twero cako tuku anyen."
 
 #: ColorDeductoActivity.py:187
 msgid "Game over."
-msgstr "Tuku ogik."
+msgstr "Tuku otunu iyi agiki."
 
 #: ColorDeductoActivity.py:200 ColorDeductoActivity.py:230
 msgid "Click on new game button to begin."
-msgstr "Di mapeca me tuku anyen wek ocakere."
+msgstr "Di mapeca me tuku anyen wek icaki."
 
 #: ColorDeductoActivity.py:202 ColorDeductoActivity.py:232
 msgid "Wait for sharer to start a new game."
-msgstr "Kur ngat inywako kede wek tuku anyen ocake."
+msgstr "Kur ngat inywako kede wek icak tuku anyen."
 
 #: ColorDeductoActivity.py:213 ColorDeductoActivity.py:242
 #, python-format
@@ -80,11 +80,11 @@ msgstr "%d anca ikome."
 
 #: ColorDeductoActivity.py:219
 msgid "Pattern was false."
-msgstr "Kit okede kede onwongo goba."
+msgstr "Kite mere onwongo pe ateni."
 
 #: ColorDeductoActivity.py:248
 msgid "Pattern was true."
-msgstr "Kit okede kede onwongo ateni."
+msgstr "Kite mere onwongo ateni."
 
 #: ColorDeductoActivity.py:259
 msgid "Resume play"
@@ -92,11 +92,11 @@ msgstr "Dok ituku"
 
 #: ColorDeductoActivity.py:261
 msgid "Show a pattern that matches the rule."
-msgstr "Nyut kite yore ame rwate ki cik."
+msgstr "Nyut kite moro ame rwate ki cik."
 
 #: ColorDeductoActivity.py:263
 msgid "Show a pattern that does not match the rule."
-msgstr "Nyuti kit yore ape rwate ki cik."
+msgstr "Nyuti kite moro ape rwate ki cik."
 
 #: ColorDeductoActivity.py:265
 #, python-format
