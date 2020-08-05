@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-#Copyright (c) 2012 Walter Bender
+# Copyright (c) 2012 Walter Bender
 # Ported to GTK3: Ignacio Rodríguez
 # <ignaciorodriguez@sugarlabs.org>
+
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License, or
@@ -13,7 +14,9 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk,Gdk
+
+from gi.repository import Gtk
+from gi.repository import Gdk
 
 from sugar3.activity import activity
 from sugar3 import profile
@@ -23,14 +26,8 @@ from sugar3.activity.widgets import StopButton
 from sugar3.graphics.objectchooser import ObjectChooser
 
 from toolbar_utils import button_factory, label_factory, separator_factory
-from utils import json_load, json_dump
 
-from gi.repository import TelepathyGLib
-import dbus
-from dbus.service import signal
-from dbus.gi_service import ExportedGObject
-from sugar3.presence import presenceservice
-from sugar3.presence.tubeconn import TubeConnection
+from collabwrapper import CollabWrapper
 
 from gettext import gettext as _
 
@@ -40,21 +37,13 @@ import logging
 _logger = logging.getLogger('color-deducto-activity')
 
 
-SERVICE = 'in.seeta.ColorDeducto'
-IFACE = SERVICE
-PATH = '/in/seeta/ColorDeductoActivity'
-
-
 class ColorDeductoActivity(activity.Activity):
     """ Logic puzzle game """
 
-
     def __init__(self, handle):
         """ Initialize the toolbars and the game board """
-        try:
-            super(ColorDeductoActivity, self).__init__(handle)
-        except dbus.exceptions.DBusException as e:
-            _logger.error(str(e))
+
+        super().__init__(handle)
 
         self.nick = profile.get_nick_name()
         if profile.get_color() is not None:
@@ -74,7 +63,7 @@ class ColorDeductoActivity(activity.Activity):
 
         # Create a canvas
         canvas = Gtk.DrawingArea()
-        canvas.set_size_request(Gdk.Screen.width(), \
+        canvas.set_size_request(Gdk.Screen.width(),
                                 Gdk.Screen.height())
         self.set_canvas(canvas)
         canvas.show()
@@ -84,7 +73,12 @@ class ColorDeductoActivity(activity.Activity):
 
         self._sharing = False
         self._initiating = False
-        self._setup_presence_service()
+        self.connect('shared', self._shared_cb)
+        self.connect('joined', self._joined_cb)
+        self._collab = CollabWrapper(self)
+        self._collab.connect('message', self._message_cb)
+        self._collab.connect('joined', self._joined_cb)
+        self._collab.setup()
 
         if 'level' in self.metadata:
             self.level = int(self.metadata['level'])
@@ -245,6 +239,7 @@ class ColorDeductoActivity(activity.Activity):
                 _('Show a pattern that does not match the rule.'))
             self.status.set_label(
                 _('Explore patterns with the %s and %s buttons.') % ('☑', '☒'))
+
             self._playing = False
         else:
             self._example_button.set_icon_name('example')
@@ -262,14 +257,14 @@ class ColorDeductoActivity(activity.Activity):
         self.status.set_text(
             _('Load a "True" pattern generator from the journal'))
         self._chooser('org.laptop.Pippy',
-                self._load_python_code_from_journal)
+                      self._load_python_code_from_journal)
         if self._python_code is None:
             return
         LEVELS_TRUE.append(self._python_code)
         self.status.set_text(
             _('Load a "False" pattern generator from the journal'))
         self._chooser('org.laptop.Pippy',
-                self._load_python_code_from_journal)
+                      self._load_python_code_from_journal)
         LEVELS_FALSE.append(self._python_code)
         if self._python_code is None:
             return
@@ -312,102 +307,44 @@ class ColorDeductoActivity(activity.Activity):
     # The sharer sends patterns and everyone shares whatever vote is
     # cast first among all the sharer and joiners.
 
-    def _setup_presence_service(self):
-        ''' Setup the Presence Service. '''
-        self.pservice = presenceservice.get_instance()
-        self._initiating = None  # sharing (True) or joining (False)
+    def set_data(self, data):
+        pass
 
-        owner = self.pservice.get_owner()
-        self.owner = owner
-        self._share = ""
-        self.connect('shared', self._shared_cb)
-        self.connect('joined', self._joined_cb)
+    def get_data(self):
+        return None
 
     def _shared_cb(self, activity):
         ''' Either set up initial share...'''
-        self._new_tube_common(True)
+        self.after_share_join(True)
 
     def _joined_cb(self, activity):
         ''' ...or join an exisiting share. '''
-        self._new_tube_common(False)
+        self.after_share_join(False)
 
-    def _new_tube_common(self, sharer):
-        ''' Joining and sharing are mostly the same... '''
-        if self.shared_activity is None:
-            _logger.debug("Error: Failed to share or join activity ... \
-                shared_activity is null in _shared_cb()")
-            return
+    def after_share_join(self, sharer):
 
+        self.waiting_for_hand = not sharer
         self._initiating = sharer
         self._sharing = True
-
-        self.conn = self.shared_activity.telepathy_conn
-        self.tubes_chan = self.shared_activity.telepathy_tubes_chan
-        self.text_chan = self.shared_activity.telepathy_text_chan
-
-        self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].connect_to_signal(
-            'NewTube', self._new_tube_cb)
-
-        if sharer:
-            _logger.debug('This is my activity: making a tube...')
-            id = self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].OfferDBusTube(
-                SERVICE, {})
-        else:
-            _logger.debug('I am joining an activity: waiting for a tube...')
-            self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].ListTubes(
-                reply_handler=self._list_tubes_reply_cb,
-                error_handler=self._list_tubes_error_cb)
-
-    def _list_tubes_reply_cb(self, tubes):
-        ''' Reply to a list request. '''
-        for tube_info in tubes:
-            self._new_tube_cb(*tube_info)
-
-    def _list_tubes_error_cb(self, e):
-        ''' Log errors. '''
-        _logger.debug('Error: ListTubes() failed: %s' % (e))
-
-    def _new_tube_cb(self, id, initiator, type, service, params, state):
-        ''' Create a new tube. '''
-        _logger.debug('New tube: ID={} initator={} type={} service={} \
-params={} state={}'.format(id, initiator, type, service, params, state))
-
-        if (type == TelepathyGLib.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
-            
-            if state == TelepathyGLib.TubeState.LOCAL_PENDING:
-                self.tubes_chan[ \
-                              TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
-
-            tube_conn = TubeConnection(self.conn,
-                self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES], id, \
-                group_iface=self.text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP])
-
-            self.chattube = ChatTube(tube_conn, self._initiating, \
-                self._event_received_cb)
 
     def _setup_dispatch_table(self):
         ''' Associate tokens with commands. '''
         self._processing_methods = {
-            'n': [self._receive_new_game, 'new game'],
-            'g': [self._receive_new_grid, 'get a new grid'],
-            't': [self._receive_true_button_click, 'get a true button press'],
-            'f': [self._receive_false_button_click, 'get a false button press'],
-            }
+            'new_game': [self._receive_new_game, 'new game'],
+            'new_grid': [self._receive_new_grid, 'get a new grid'],
+            'true': [self._receive_true_button_click, 'get a true button press'],
+            'false': [self._receive_false_button_click, 'get a false button press'],
+        }
 
-    def _event_received_cb(self, event_message):
-        ''' Data from a tube has arrived. '''
-        if len(event_message) == 0:
-            return
-        try:
-            command, payload = event_message.split('|', 2)
-        except ValueError:
-            _logger.debug('Could not split event message %s' % (event_message))
-            return
+    def _message_cb(self, collab, buddy, msg):
+
+        command = msg.get('command')
+        payload = msg.get('payload')
         self._processing_methods[command][0](payload)
 
     def _send_new_game(self):
         ''' Send a new game message to all players (only sharer sends grids) '''
-        self._send_event('n| ')
+        self._send_event('new_game', ' ')
 
     def _receive_new_game(self, payload):
         ''' Receive a new game notification from the sharer. '''
@@ -420,16 +357,16 @@ params={} state={}'.format(id, initiator, type, service, params, state))
 
     def _send_new_grid(self):
         ''' Send a new grid to all players (only sharer sends grids) '''
-        self._send_event('g|%s' % (json_dump(self._game.save_grid())))
+        self._send_event('new_grid', self._game.save_grid())
 
     def _receive_new_grid(self, payload):
         ''' Receive a grid from the sharer. '''
-        (dot_list, boolean) = json_load(payload)
-        self._game.restore_grid(dot_list, boolean)
+        (dot_list, boolean, colors) = payload
+        self._game.restore_grid(dot_list, boolean, colors)
 
     def _send_true_button_click(self):
         ''' Send a true click to all the players '''
-        self._send_event('t|t')
+        self._send_event('true')
 
     def _receive_true_button_click(self, payload):
         ''' When a button is clicked, everyone should react. '''
@@ -438,38 +375,13 @@ params={} state={}'.format(id, initiator, type, service, params, state))
 
     def _send_false_button_click(self):
         ''' Send a false click to all the players '''
-        self._send_event('f|f')
+        self._send_event('false')
 
     def _receive_false_button_click(self, payload):
         ''' When a button is clicked, everyone should react. '''
         self._playing = True
         self._false_cb()
 
-    def _send_event(self, entry):
-        ''' Send event through the tube. '''
-        if hasattr(self, 'chattube') and self.chattube is not None:
-            self.chattube.SendText(entry)
+    def _send_event(self, command, payload=None):
+        self._collab.post({'command': command, 'payload': payload})
 
-
-class ChatTube(ExportedGObject):
-    ''' Class for setting up tube for sharing '''
-
-    def __init__(self, tube, is_initiator, stack_received_cb):
-        super(ChatTube, self).__init__(tube, PATH)
-        self.tube = tube
-        self.is_initiator = is_initiator  # Are we sharing or joining activity?
-        self.stack_received_cb = stack_received_cb
-        self.stack = ''
-
-        self.tube.add_signal_receiver(self._send_stack_cb, 'SendText', IFACE,
-                                      path=PATH, sender_keyword='sender')
-
-    def _send_stack_cb(self, text, sender=None):
-        if sender == self.tube.get_unique_name():
-            return
-        self.stack = text
-        self.stack_received_cb(text)
-
-    @signal(dbus_interface=IFACE, signature='s')
-    def SendText(self, text):
-        self.stack = text
