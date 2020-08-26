@@ -316,7 +316,7 @@ class ColorDeductoActivity(activity.Activity):
 
     def _joined_cb(self, activity):
         ''' ...or join an exisiting share. '''
-        self.after_share_join(False)
+        self.after_share_join(True)
 
     def after_share_join(self, sharer):
 
