@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-07 00:06+0100\n"
-"PO-Revision-Date: 2024-11-01 03:26+0000\n"
+"PO-Revision-Date: 2026-04-01 08:11+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/colordeducto/ka/>\n"
@@ -30,7 +30,7 @@ msgstr ""
 #: ColorDeductoActivity.py:91
 #, python-format
 msgid "Resuming level %d"
-msgstr "ვაგრძელებ დონეს %d"
+msgstr "ვაგრძელებ დონეზე %d"
 
 #: ColorDeductoActivity.py:115 ColorDeductoActivity.py:182
 #: ColorDeductoActivity.py:212
