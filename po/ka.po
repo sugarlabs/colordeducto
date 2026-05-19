@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-07 00:06+0100\n"
-"PO-Revision-Date: 2026-04-01 08:11+0000\n"
+"PO-Revision-Date: 2026-05-19 11:33+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/colordeducto/ka/>\n"
@@ -39,15 +39,15 @@ msgstr "ახალი თამაშის დაწყება."
 
 #: ColorDeductoActivity.py:121 ColorDeductoActivity.py:253
 msgid "The pattern matches the rule."
-msgstr "ნიმუში ემთხვევა წესს."
+msgstr "ნიმუში წესს ემთხვევა."
 
 #: ColorDeductoActivity.py:125 ColorDeductoActivity.py:255
 msgid "The pattern does not match the rule."
-msgstr "ნიმუში არ ემთხვევა წესს."
+msgstr "ნიმუში წესს არ ემთხვევა."
 
 #: ColorDeductoActivity.py:131 ColorDeductoActivity.py:251
 msgid "Explore some examples."
-msgstr "დაათვალიერეთ ზოგიერთი მაგალითი."
+msgstr "დაათვალიერეთ მაგალითები."
 
 #: ColorDeductoActivity.py:140
 msgid "Load a custom level."
@@ -69,7 +69,7 @@ msgstr "თამაში დასრულდა."
 
 #: ColorDeductoActivity.py:184 ColorDeductoActivity.py:214
 msgid "Wait for sharer to start a new game."
-msgstr "დაელოდეთ გამზიარებელს, რომ ახალ თამაში დაიწყოს."
+msgstr "ახალი თამაშის დასაწყებად დაელოდეთ გამზიარებელს."
 
 #: ColorDeductoActivity.py:195 ColorDeductoActivity.py:224
 #, python-format
@@ -78,11 +78,11 @@ msgstr "%d სწორი პასუხი."
 
 #: ColorDeductoActivity.py:201
 msgid "Pattern was false."
-msgstr "ნიმუში ცრუ იყო."
+msgstr "ნიმუში ცრუა."
 
 #: ColorDeductoActivity.py:230
 msgid "Pattern was true."
-msgstr "ნიმუში ჭეშმარიტი იყო."
+msgstr "ნიმუში ჭეშმარიტია."
 
 #: ColorDeductoActivity.py:241
 msgid "Resume play"
@@ -90,7 +90,7 @@ msgstr "თამაშის გაგრძელება"
 
 #: ColorDeductoActivity.py:243
 msgid "Show a pattern that matches the rule."
-msgstr "ნიმუშის ჩვენება, რომელიც წესს ემთხვევა."
+msgstr "ჩვენება ნიმუშის, რომელიც წესს ემთხვევა."
 
 #: ColorDeductoActivity.py:245
 msgid "Show a pattern that does not match the rule."
@@ -111,7 +111,7 @@ msgstr "\"ცრუ\" ნიმუშის გენერატორის �
 
 #: ColorDeductoActivity.py:276
 msgid "New level added"
-msgstr "ახალი დონე დამატებულია"
+msgstr "დაემატა ახალი დონე"
 
 #: ColorDeductoActivity.py:122
 msgid "Game"
@@ -119,4 +119,4 @@ msgstr "თამაში"
 
 #: ColorDeductoActivity.py:200 ColorDeductoActivity.py:230
 msgid "Click on new game button to begin."
-msgstr "დასაწყებად, დააწკაპუნეთ ახალი თამაშის ღილაკზე."
+msgstr "დასაწყებად დააწკაპუნეთ ახალი თამაშის ღილაკზე."
